@@ -1,3 +1,5 @@
+# Implementation Learning Hyper Label Model for Programmatic Weak Supervision (https://arxiv.org/abs/2207.13545)
+
 ** IMPORTANT NOTE: we only tested the instructions in this file on an ubuntu machine. If you encounters problems with Windows or Mac, please switch to an ubuntu machine. 
 
 # 1. Download Datasets
