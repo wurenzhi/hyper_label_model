@@ -51,6 +51,3 @@ This trains the LELA model 10 runs and prints the checkpoint of the run selected
 Please use the suggested checkpoint for your evaluation.
 
 Note training can take 2-3 days. To speedup, one can adapt the script to use a different GPU for a different run to execute the runs in parallel.
-
-# 5. LICENSE
-Our code is released under GNU GENERAL PUBLIC LICENSE Version 3. See the LICENSE file.
