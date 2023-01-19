@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+[project]
+name = "hyperlm"
+version = "0.0.3"
+authors = [
+  { name="Renzhi Wu", email="renzhiwu@gatech.edu" },
+]
+description = "A hyper label model to aggregate weak labels from multiple weak supervision sources to infer the ground-truth labels in a single forward pass"
+readme = "README.md"
+dependencies = [
+"scipy",
+"numpy",
+"torch >= 1.11.0",
+]
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/wurenzhi/hyper_label_model"
+"Bug Tracker" = "https://github.com/wurenzhi/hyper_label_model/issues"

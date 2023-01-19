@@ -5,7 +5,7 @@ from scipy.sparse import coo_matrix
 import torch.optim as optim
 import os
 
-from loss import BCEMask, BCEMaskWeighted
+from .loss import BCEMask, BCEMaskWeighted
 
 
 def sparse_mean(index, value, expand=True):
@@ -178,17 +178,22 @@ class UnsupervisedWraper:
             preds = torch.cat(preds, dim=1)
             preds = preds / torch.sum(preds, dim=1).unsqueeze(1)
         preds = preds.detach().cpu().numpy()
-
-        ## scale the probs the have a maximum of 1 and minimum of 0
-        tie_score = 1 / n_class
-        preds[preds > tie_score] = (preds[preds > tie_score] - tie_score) * tie_score / (
-                np.max(preds[preds > tie_score]) - tie_score) + tie_score
-        preds[preds < tie_score] = (preds[preds < tie_score] - tie_score) * tie_score / (
-                tie_score - np.min(preds[preds < tie_score])) + tie_score
-        preds[preds > 1] = 1
-        preds[preds < 0] = 0
-        preds = preds / np.sum(preds, axis=1, keepdims=True)
         return preds
+
+
+
+def calibrate_probs(probs):
+    ## scale the probs the have a maximum of 1 and minimum of 0
+    n_class = probs.shape[1]
+    tie_score = 1 / n_class
+    probs[probs > tie_score] = (probs[probs > tie_score] - tie_score) * tie_score / (
+            np.max(probs[probs > tie_score]) - tie_score) + tie_score
+    probs[probs < tie_score] = (probs[probs < tie_score] - tie_score) * tie_score / (
+            tie_score - np.min(probs[probs < tie_score])) + tie_score
+    probs[probs > 1] = 1
+    probs[probs < 0] = 0
+    probs = probs / np.sum(probs, axis=1, keepdims=True)
+    return probs
 
 
 def HyperLMSemi(LF_mat, y_vals, y_indices, device, checkpoint_path):
@@ -324,6 +329,7 @@ class HyperLabelModel:
             probs = HyperLMSemi(X, y_vals, y_indices, self.device, self.checkpoint_path)
 
         if return_probs:
+            probs = calibrate_probs(probs)
             return probs
         else:
             return np.argmax(probs, axis=1).flatten()
@@ -331,10 +337,9 @@ class HyperLabelModel:
 
 if __name__ == "__main__":
     hlm = HyperLabelModel()
-    X = np.array([[1, 1, 0],
-                  [0, 0, 1],
+    X = np.array([[0, 0, 1],
                   [1, 1, 1],
                   [-1, 1, 0],
                   [0, 1, 0]])
-    y = hlm.infer(X)
+    y = hlm.infer(X, return_probs=True)
     print(y)
