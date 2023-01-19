@@ -317,6 +317,7 @@ class HyperLabelModel:
         Returns:
             predicted labels
         """
+        X = np.array(X)
         is_semi_supervised = False
         if y_vals is not None:
             assert y_indices is not None
@@ -341,5 +342,5 @@ if __name__ == "__main__":
                   [1, 1, 1],
                   [-1, 1, 0],
                   [0, 1, 0]])
-    y = hlm.infer(X, return_probs=True)
+    y = hlm.infer(X)
     print(y)
