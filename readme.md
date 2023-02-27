@@ -18,7 +18,7 @@ conda install numba==0.55.1
 
 
 # 3. Reproducing Experiment Results
-In this section, we show how to quickly reproduce the numbers and figures in our paper using our provided trained LELA model. We will show how to train LELA from scratch in the next section.
+In this section, we show how to quickly reproduce the numbers and figures in our paper using our provided trained LELA model (hyper label model). We will show how to train LELA (hyper label model) from scratch in the next section.
 
 ## 3.1. Label Aggregation Performance & Running Time
 ```
