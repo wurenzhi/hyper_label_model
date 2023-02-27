@@ -1,7 +1,7 @@
 ### Hyper label model
 A hyper label model to aggregate weak labels from multiple weak supervision sources to infer the ground-truth labels in a single forward pass.
 
-For more details, see our paper [Learning Hyper Label Model for Programmatic Weak Supervision](https://arxiv.org/abs/2207.13545)
+For more details, see our ICLR23 paper [Learning Hyper Label Model for Programmatic Weak Supervision](https://arxiv.org/abs/2207.13545)
 
 ** To reproduce experiments of our paper or to re-train the model from scratch, please switch to the paper_experiments branch.
 
@@ -29,4 +29,16 @@ Note in `X`, `-1` represents abstention,  `0` and `1` represent classes. Each ro
 
 ```python
    pred = hlm.infer(X, y_indices=y_indices,y_vals=y_vals)
+```
+
+### Citation
+```
+@inproceedings{
+wu2023learning,
+title={Learning Hyper Label Model for Programmatic Weak Supervision},
+author={Renzhi Wu and Shen-En Chen and Jieyu Zhang and Xu Chu},
+booktitle={The Eleventh International Conference on Learning Representations },
+year={2023},
+url={https://openreview.net/forum?id=aCQt_BrkSjC}
+}
 ```
